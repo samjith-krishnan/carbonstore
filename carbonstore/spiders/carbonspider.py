@@ -25,10 +25,10 @@ class CarbonSpider(scrapy.Spider):
                         'brand': response.css('h2.ProductMeta__Vendor.Heading.u-h1 a::text').get(),
                         'product_name': response.css('h1.ProductMeta__Title.Heading.u-h3::text').get(),
                         'price': response.css('span.ProductMeta__Price.Price::text').get(),
-                        'reviews':response.css('div.yotpo-sr-bottom-line-text.yotpo-sr-bottom-line-text--right-panel::text').get(),
+                        'reviews':response.css('div.yotpo-sr-bottom-line-text.yotpo-sr-bottom-line-text--right-panel::text').get() or '0 Reviews',
                         'colour':response.css('span.ProductForm__SelectedValue::text').get(),
                         'sizes':response.css('ul.SizeSwatchList.HorizontalList.HorizontalList--spacingTight li label::text').getall(),
-                        'description':response.css('div.Faq__Answer.Rte span::text').get(),
+                        'description':response.css('div.Faq__Answer.Rte span::text').get() or 'No Description',
                         'product_url': response.url,
                         'image_urls':response.css('div.Product__SlideshowNavScroller a::attr(href)').getall(),
 
@@ -40,10 +40,9 @@ class CarbonSpider(scrapy.Spider):
                         'brand': response.css('h2.ProductMeta__Vendor.Heading.u-h1 a::text').get(),
                         'product_name': response.css('h1.ProductMeta__Title.Heading.u-h3::text').get(),
                         'price': 'out of stock',
-                        'reviews':'0 Reviews',
+                        
                         'colour':'not available',
                         'sizes':'out of stock',
-                        'description':response.css('div.Faq__Answer.Rte span::text').get(),
                         'product_url': response.url,
                         'image_urls':response.css('div.Product__SlideshowNavScroller a::attr(href)').getall(),
                     }
