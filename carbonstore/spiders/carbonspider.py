@@ -22,7 +22,7 @@ class CarbonSpider(scrapy.Spider):
                 try:
                     yield{
                         'primary_image_url':response.css('div.AspectRatio.AspectRatio--withFallback img').attrib['src'],
-                        'brand': response.css('h2.ProductMeta__Vendor.Heading.u-h1::text').get() or 'not available',
+                        'brand':response.css('h2.ProductMeta__Vendor.Heading.u-h1 a::text').get() or response.css('h2.ProductMeta__Vendor.Heading.u-h1::text').get(),
                         'product_name': response.css('h1.ProductMeta__Title.Heading.u-h3::text').get(),
                         'price': response.css('span.ProductMeta__Price.Price::text').get(),
                         'reviews':response.css('div.yotpo-sr-bottom-line-text.yotpo-sr-bottom-line-text--right-panel::text').get() or '0 Reviews',
@@ -37,7 +37,7 @@ class CarbonSpider(scrapy.Spider):
                 except:
                     yield{
                         'primary_image_url':response.css('div.AspectRatio.AspectRatio--withFallback img').attrib['src'],
-                        'brand': response.css('h2.ProductMeta__Vendor.Heading.u-h1 a::text').get() or 'not available',
+                        'brand':response.css('h2.ProductMeta__Vendor.Heading.u-h1 a::text').get(),
                         'product_name': response.css('h1.ProductMeta__Title.Heading.u-h3::text').get(),
                         'price': 'out of stock',
                         'reviews':response.css('div.yotpo-sr-bottom-line-text.yotpo-sr-bottom-line-text--right-panel::text').get() or '0 Reviews', 
